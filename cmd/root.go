@@ -10,7 +10,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "toggler",
-	Short: "A CLI for Toggl attendance",
+	Short: "A CLI for Toggl time tracking",
+	Long:  `Toggler is a command line interface for the Toggl time tracking service.`,
 }
 
 func Execute() {
@@ -27,9 +28,12 @@ func init() {
 func initConfig() {
 	viper.SetConfigName("toggler")
 	viper.SetConfigType("yaml")
+	viper.AddConfigPath("$HOME/.config")
 	viper.AddConfigPath(".")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("Can't read config:", err)
-		os.Exit(1)
+	viper.SetEnvPrefix("TOGGLER")
+	viper.AutomaticEnv()
+	
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Printf("Using config file: %s\n", viper.ConfigFileUsed())
 	}
 }

@@ -1,6 +1,6 @@
 package main
 
-import "toggler/cmd"
+import "github.com/EyalPazz/toggler/cmd"
 
 func main() {
 	cmd.Execute()
